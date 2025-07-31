@@ -1,0 +1,30 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE WRAPPER JDBC departments
+    DATASOURCENAME=db_1.ds_mydata
+    CATALOGNAME='${databases.db_2.views.jdbc.departments.CATALOGNAME}' 
+    RELATIONNAME='departments' 
+    OUTPUTSCHEMA (
+        dept_id = 'dept_id' :'java.lang.Integer' (OPT) (sourcetyperadix='10', sourcetypesize='10', description='', sourcetypeid='4', sourcetypename='INT')  NOT NULL SORTABLE,
+        dept_name = 'dept_name' :'java.lang.String' (OPT) (sourcetyperadix='10', sourcetypesize='100', description='', sourcetypeid='12', sourcetypename='VARCHAR')  SORTABLE
+    )
+    CONSTRAINT 'PRIMARY' PRIMARY KEY ( 'dept_id' )
+    INDEX 'PRIMARY' CLUSTER UNIQUE PRIMARY ( 'dept_id' );
+
+CREATE OR REPLACE TABLE departments I18N au_cst (
+        dept_id:int (notnull, sourcetypeid = '4', sourcetyperadix = '10', sourcetypesize = '10', description = ''),
+        dept_name:text (sourcetypeid = '12', sourcetyperadix = '10', sourcetypesize = '100', description = '')
+    )
+    CONSTRAINT 'PRIMARY' PRIMARY KEY ( 'dept_id' )
+    CACHE OFF
+    TIMETOLIVEINCACHE DEFAULT
+    ADD SEARCHMETHOD departments(
+        I18N au_cst
+        CONSTRAINTS (
+             ADD dept_id (any) OPT ANY
+             ADD dept_name (any) OPT ANY
+        )
+        OUTPUTLIST (dept_id, dept_name
+        )
+        WRAPPER (jdbc departments)
+    );
+
