@@ -1,0 +1,33 @@
+﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
+CREATE OR REPLACE DATASOURCE JDBC ds_mydata
+    DRIVERCLASSNAME = 'com.mysql.cj.jdbc.Driver'
+    DATABASEURI = '${databases.db_1.datasources.jdbc.ds_mydata.DATABASEURI}'
+    USERNAME = '${databases.db_1.datasources.jdbc.ds_mydata.USERNAME}'
+    USERPASSWORD = '${databases.db_1.datasources.jdbc.ds_mydata.USERPASSWORD}' ${databases.db_1.datasources.jdbc.ds_mydata.USERPASSWORD.ENCRYPTED}
+    CLASSPATH = 'mysql-8'
+    DATABASENAME = 'mysql'
+    DATABASEVERSION = '8'
+    FETCHSIZE = 1000
+    VALIDATIONQUERY = 'Select 1'
+    INITIALSIZE = 4
+    MAXIDLE = -1
+    MINIDLE = 0
+    MAXACTIVE = 20
+    EXHAUSTEDACTION = 1
+    TESTONBORROW = true
+    TESTONRETURN = false
+    TESTWHILEIDLE = false
+    TIMEBETWEENEVICTION = -1
+    NUMTESTPEREVICTION = 3
+    MINEVICTABLETIME = 1800000
+    POOLPREPAREDSTATEMENTS = false
+    MAXOPENPREPAREDSTATEMENTS = -1
+    PROPERTIES ('vdp.streamRows'='yes', 'allowLoadLocalInfile'='true')
+    DATA_LOAD_CONFIGURATION (
+        BATCHINSERTSIZE = 200
+        USEEXTERNALTABLES ( 
+            ONMOVEREAD = false,
+            ONMOVEWRITE = true
+        )
+    );
+
