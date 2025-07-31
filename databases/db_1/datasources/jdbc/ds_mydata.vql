@@ -1,12 +1,12 @@
 ﻿# REQUIRES-PROPERTIES-FILE - # Do not remove this comment!
 CREATE OR REPLACE DATASOURCE JDBC ds_mydata
-    DRIVERCLASSNAME = 'com.mysql.cj.jdbc.Driver'
+    DRIVERCLASSNAME = 'com.microsoft.sqlserver.jdbc.SQLServerDriver'
     DATABASEURI = '${databases.db_1.datasources.jdbc.ds_mydata.DATABASEURI}'
     USERNAME = '${databases.db_1.datasources.jdbc.ds_mydata.USERNAME}'
     USERPASSWORD = '${databases.db_1.datasources.jdbc.ds_mydata.USERPASSWORD}' ${databases.db_1.datasources.jdbc.ds_mydata.USERPASSWORD.ENCRYPTED}
-    CLASSPATH = 'mysql-8'
-    DATABASENAME = 'mysql'
-    DATABASEVERSION = '8'
+    CLASSPATH = 'mssql-jdbc-10.x'
+    DATABASENAME = 'sqlserver'
+    DATABASEVERSION = '2019'
     FETCHSIZE = 1000
     VALIDATIONQUERY = 'Select 1'
     INITIALSIZE = 4
@@ -22,12 +22,10 @@ CREATE OR REPLACE DATASOURCE JDBC ds_mydata
     MINEVICTABLETIME = 1800000
     POOLPREPAREDSTATEMENTS = false
     MAXOPENPREPAREDSTATEMENTS = -1
-    PROPERTIES ('vdp.streamRows'='yes', 'allowLoadLocalInfile'='true')
+    PROPERTIES ('trustServerCertificate'='true')
+    KERBEROSPROPERTIES ('authenticationScheme'='JavaKerberos', 'integratedSecurity'='true')
+    OAUTHPROPERTIES ('authentication'='NotSpecified')
     DATA_LOAD_CONFIGURATION (
-        BATCHINSERTSIZE = 200
-        USEEXTERNALTABLES ( 
-            ONMOVEREAD = false,
-            ONMOVEWRITE = true
-        )
+        BATCHINSERTSIZE = 1000
     );
 

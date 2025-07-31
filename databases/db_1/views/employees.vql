@@ -2,6 +2,7 @@
 CREATE OR REPLACE WRAPPER JDBC employees
     DATASOURCENAME=ds_mydata
     CATALOGNAME='${databases.db_1.views.jdbc.employees.CATALOGNAME}' 
+    SCHEMANAME='${databases.db_1.views.jdbc.employees.SCHEMANAME}' 
     RELATIONNAME='employees' 
     OUTPUTSCHEMA (
         emp_id = 'emp_id' :'java.lang.Integer' (OPT) (sourcetyperadix='10', sourcetypesize='10', description='', sourcetypeid='4', sourcetypename='INT')  NOT NULL SORTABLE,

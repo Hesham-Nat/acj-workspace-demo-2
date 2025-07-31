@@ -2,6 +2,7 @@
 CREATE OR REPLACE WRAPPER JDBC departments
     DATASOURCENAME=ds_mydata
     CATALOGNAME='${databases.db_1.views.jdbc.departments.CATALOGNAME}' 
+    SCHEMANAME='${databases.db_1.views.jdbc.departments.SCHEMANAME}' 
     RELATIONNAME='departments' 
     OUTPUTSCHEMA (
         dept_id = 'dept_id' :'java.lang.Integer' (OPT) (sourcetyperadix='10', sourcetypesize='10', description='', sourcetypeid='4', sourcetypename='INT')  NOT NULL SORTABLE,
